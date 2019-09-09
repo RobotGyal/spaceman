@@ -1,5 +1,7 @@
 import random
 
+import pyfiglet
+
 letters_guessed = []
 
 class colors:
@@ -67,7 +69,7 @@ def get_guessed_word(secret_word, letters_guessed):
         if letter in show:
             guesses.append(letter)
         else:
-            guesses.append('_')
+            guesses.append('_ ')
 
     answer = ''.join(guesses)
     print('This is the correct answer: ' + answer)
@@ -94,7 +96,7 @@ def is_guess_in_word(guess, secret_word):
         return False
     else:
         letters_guessed.append(guess)
-        print (colors.red, 'That is not a correct letter')
+        print (colors.red, '\nThat is not a correct letter')
         letters_guessed.sort()
         print('Here are the already guessed letters: ', *letters_guessed)
         return False
@@ -110,24 +112,29 @@ def spaceman(secret_word):
 
     '''
     
-    print(colors.yellow, '\n\nWelcome to Spaceman! A word guessing game of the new age!\nLet\'s get started!\n\n')
+    welcome = '\n\nWelcome to Spaceman! \nA word guessing game of the new age!\nLet\'s get started!\n\n'
+    banner_intro = pyfiglet.figlet_format(welcome, font = "drpepper" ) 
+    banner_win = pyfiglet.figlet_format('You Win!!', font = "drpepper" ) 
+    banner_lose = pyfiglet.figlet_format('You Lose!', font = "drpepper" ) 
+    print(colors.yellow, banner_intro)
 
     while True: 
         print(colors.grey)
+        print('Your word will be ' + str(len(secret_word)) + ' letters long')
         guess = input('Enter a letter: ')
         if guess.isalpha == False:
-            print(colors.red, 'Please enter letters only: ')
+            print(colors.red, 'Please enter letters only ')
         else:
             is_guess_in_word(guess, secret_word)
             get_guessed_word(secret_word, letters_guessed)
             incorrect_guess = set(letters_guessed).difference(secret_word)
 
             if is_word_guessed(secret_word, letters_guessed) == True:
-                print(colors.pink, "\n\nYou did it! You won the game! Congratulations!")
-                quit()
+                print()
+                print(colors.pink, banner_win + '\nYou won the game! Congratulations!')
+                return False
             elif len(incorrect_guess) > 6:
-                print(colors.red, '/nYou lost. Better luck next time.')
-                quit()
+                print(colors.red, banner_lose + '\nYou lost.\nThis is your mystery word: ' + secret_word + '\nBetter luck next time.')
                 return False
             else:
                 print (colors.yellow, "Number of guesses attempted: " + str(len(incorrect_guess)) + '\n\n')
