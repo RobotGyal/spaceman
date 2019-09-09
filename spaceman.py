@@ -1,5 +1,7 @@
 import random
 
+letters_guessed = []
+
 #RANDOMLY PICKS A WORD FROM WORDS.TXT FILE
 def load_word():
     '''
@@ -30,7 +32,12 @@ def is_word_guessed(secret_word, letters_guessed):
         bool: True only if all the letters of secret_word are in letters_guessed, False otherwise
     '''
     # TODO: Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
-    pass
+    show = [x for x in secret_word if x in letters_guessed]
+
+    if len[show] == len(secret_word):
+        return True
+    else:
+        return False
 
 #DISPLAYS WORD WITH CORRECT GUESSES OR BLANKS
 def get_guessed_word(secret_word, letters_guessed):
@@ -46,8 +53,17 @@ def get_guessed_word(secret_word, letters_guessed):
     '''
 
     #TODO: Loop through the letters in secret word and build a string that shows the letters that have been guessed correctly so far that are saved in letters_guessed and underscores for the letters that have not been guessed yet
+    guesses = []
 
-    pass
+    for letter in secret_word:
+        show = set(letters_guessed).intersection(secret_word)
+        if item in show:
+            guesses.append(item)
+        else:
+            guesses.append('_')
+
+    answer = ' '.join(guesses)
+    print('This is the correct answer: ') + answer
 
 #CHECK IF GUESS LETTER IS IN WORD
 def is_guess_in_word(guess, secret_word):
@@ -63,8 +79,19 @@ def is_guess_in_word(guess, secret_word):
 
     '''
     #TODO: check if the letter guess is in the secret word
-
-    pass
+    if guess in secret_word and guess not in letters_guessed:
+        letters_guessed.append(guess)
+        print('You have made a correct guess')
+        return True
+    elif guess in letters_guessed:
+        print ('Letter already guessed. Try another letter')
+        return False
+    else:
+        letters_guessed.append(guess)
+        print ('That is not a correct letter')
+        letters_guessed.sort()
+        print('Here are the already guessed letters: ', *letters_guessed)
+        return False
 
 
 #MAIN SPACEMAN FUNCTION
