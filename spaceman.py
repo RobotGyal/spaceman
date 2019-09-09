@@ -69,7 +69,7 @@ def get_guessed_word(secret_word, letters_guessed):
         else:
             guesses.append('_')
 
-    answer = ' '.join(guesses)
+    answer = ''.join(guesses)
     print('This is the correct answer: ' + answer)
 
 #CHECK IF GUESS LETTER IS IN WORD
@@ -122,14 +122,15 @@ def spaceman(secret_word):
             get_guessed_word(secret_word, letters_guessed)
             incorrect_guess = set(letters_guessed).difference(secret_word)
 
-            if is_guess_in_word(secret_word, letters_guessed) == True:
-                print(colors.green, "You did it!")
+            if is_word_guessed(secret_word, letters_guessed) == True:
+                print(colors.pink, "\n\nYou did it! You won the game! Congratulations!")
+                quit()
             elif len(incorrect_guess) > 6:
-                print(colors.red, 'You lost')
+                print(colors.red, '/nYou lost. Better luck next time.')
                 quit()
                 return False
             else:
-                print (colors.red, "Wrong guess. Number of guesses attempted: " + str(len(incorrect_guess)) + '\n\n')
+                print (colors.yellow, "Number of guesses attempted: " + str(len(incorrect_guess)) + '\n\n')
 
 
 
@@ -137,3 +138,8 @@ def spaceman(secret_word):
 #These function calls that will start the game
 secret_word = load_word()
 spaceman(secret_word)
+
+
+#FIX
+#"this is the correct answer" to show the full word at the end
+#"wrong guess" message even when correct guess is made
