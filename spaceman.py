@@ -2,6 +2,15 @@ import random
 
 letters_guessed = []
 
+class colors:
+    purple = '\033[30m'
+    green = '\033[32m'
+    yellow = '\033[93m'
+    pink = '\033[95m'
+    grey = '\033[37m'
+    red = '\033[31m'
+
+
 #RANDOMLY PICKS A WORD FROM WORDS.TXT FILE
 def load_word():
     '''
@@ -61,7 +70,7 @@ def get_guessed_word(secret_word, letters_guessed):
             guesses.append('_')
 
     answer = ' '.join(guesses)
-    print('This is the correct answer: ') + answer
+    print('This is the correct answer: ' + answer)
 
 #CHECK IF GUESS LETTER IS IN WORD
 def is_guess_in_word(guess, secret_word):
@@ -76,16 +85,16 @@ def is_guess_in_word(guess, secret_word):
         bool: True if the guess is in the secret_word, False otherwise
 
     '''
-        if guess in secret_word and guess not in letters_guessed:
+    if guess in secret_word and guess not in letters_guessed:
         letters_guessed.append(guess)
-        print('You have made a correct guess')
+        print(colors.green, 'You have made a correct guess\n')
         return True
     elif guess in letters_guessed:
-        print ('Letter already guessed. Try another letter')
+        print (colors.red, 'Letter already guessed. Try another letter\n')
         return False
     else:
         letters_guessed.append(guess)
-        print ('That is not a correct letter')
+        print (colors.red, 'That is not a correct letter')
         letters_guessed.sort()
         print('Here are the already guessed letters: ', *letters_guessed)
         return False
@@ -101,24 +110,26 @@ def spaceman(secret_word):
 
     '''
     
-    print('Welcome to Spaceman! A word guessing game of the new age!\nLet\'s get started!\n\n')
+    print(colors.yellow, '\n\nWelcome to Spaceman! A word guessing game of the new age!\nLet\'s get started!\n\n')
 
-    guess = input('Enter a letter: ')
-    if guess.isalpha == False:
-        print('Please enter letters only: ')
-    else:
-        is_guess_in_word(guess, secret_word)
-        get_guessed_word(secret_word, letters_guessed)
-        incorrect_guess = set(letters_guessed).difference(secret_word)
-
-        if is_guess_in_word(secret_word, letters_guessed) == True:
-            print("You did it!")
-        elif len(incorrect_guess) > 6:
-            print('You lost')
-            quit()
-            return False
+    while True: 
+        print(colors.grey)
+        guess = input('Enter a letter: ')
+        if guess.isalpha == False:
+            print(colors.red, 'Please enter letters only: ')
         else:
-            print ("Wrong guess. Try again: " + str(len(incorrect_guess)))
+            is_guess_in_word(guess, secret_word)
+            get_guessed_word(secret_word, letters_guessed)
+            incorrect_guess = set(letters_guessed).difference(secret_word)
+
+            if is_guess_in_word(secret_word, letters_guessed) == True:
+                print(colors.green, "You did it!")
+            elif len(incorrect_guess) > 6:
+                print(colors.red, 'You lost')
+                quit()
+                return False
+            else:
+                print (colors.red, "Wrong guess. Number of guesses attempted: " + str(len(incorrect_guess)) + '\n\n')
 
 
 
