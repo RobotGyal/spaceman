@@ -30,6 +30,7 @@ def load_word():
     secret_word = random.choice(words_list)
     return secret_word
 
+
 #CHECKS IF ALL LETTERS GUESSED IN WORD
 def is_word_guessed(secret_word, letters_guessed):
     '''
@@ -89,7 +90,7 @@ def is_guess_in_word(guess, secret_word):
     '''
     if guess in secret_word and guess not in letters_guessed:
         letters_guessed.append(guess)
-        print(colors.green, 'You have made a correct guess\n')
+        print(colors.green, '\nYou have made a correct guess\n')
         return True
     elif guess in letters_guessed:
         print (colors.red, 'Letter already guessed. Try another letter\n')
@@ -99,6 +100,15 @@ def is_guess_in_word(guess, secret_word):
         print (colors.red, '\nThat is not a correct letter')
         letters_guessed.sort()
         print('Here are the already guessed letters: ', *letters_guessed)
+        return False
+
+
+#REPLAYS GAME
+#def replay():
+    play_again = input('Would you like to play again? Choose an option: Y / N\n')
+    if play_again == 'y' or play_again == 'Y':
+        return True
+    else:
         return False
 
 
@@ -121,30 +131,32 @@ def spaceman(secret_word):
     while True: 
         print(colors.grey)
         print('Your word will be ' + str(len(secret_word)) + ' letters long')
-        guess = input('Enter a letter: ')
-        if guess.isalpha == False:
-            print(colors.red, 'Please enter letters only ')
+        guess = input('Enter a letter: ').lower()
+        if guess.isalpha() == False: #checks numbers and empty string
+            print(colors.red, 'Please enter a letter only ')
+        elif len(guess) > 1: #checks for only 1 character
+            print (colors.red, 'Enter only 1 letter at a time ')
         else:
             is_guess_in_word(guess, secret_word)
             get_guessed_word(secret_word, letters_guessed)
             incorrect_guess = set(letters_guessed).difference(secret_word)
 
             if is_word_guessed(secret_word, letters_guessed) == True:
-                print()
                 print(colors.pink, banner_win + '\nYou won the game! Congratulations!')
                 return False
+                #replay()
             elif len(incorrect_guess) > 6:
                 print(colors.red, banner_lose + '\nYou lost.\nThis is your mystery word: ' + secret_word + '\nBetter luck next time.')
                 return False
+                #replay()
             else:
                 print (colors.yellow, "Number of guesses attempted: " + str(len(incorrect_guess)) + '\n\n')
-
-
 
 
 #These function calls that will start the game
 secret_word = load_word()
 spaceman(secret_word)
+        
 
 
 #FIX

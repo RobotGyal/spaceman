@@ -1,25 +1,17 @@
-TO BE FIXED
-~~Error Handling
-     ~numbers
-     ~capital vs lower case (.lower and .upper)
-     ~empty string
-~Pictures/Emoji
-
 
 
 STRETCH (COMPLETED)
 ~Alert the user if they guessed a letter they already guessed, and don’t have it count as an incorrect guess
+~Show the user the mystery word when they lose
+~Users can only guess individual letters at a time. If they guess anything other than an individual letter, they should be prompted and told to input only one letter
 
 
 
 
 STRETCH(TO BE COMPLETED)
-~Users can only guess individual letters at a time. If they guess anything other than an individual letter, they should be prompted and told to input only one letter
 ~Prompt  the user to play again after a game ends. If they say yes, then start a new game.
 ~Change the number of incorrect guesses allowed to match the length of the mystery word
-~Show the user the mystery word when they lose
 ~Use ASCII art to draw the spaceman with each incorrect guess
-
 
 
 
