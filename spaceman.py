@@ -102,14 +102,19 @@ def is_guess_in_word(guess, secret_word):
         print('Here are the already guessed letters: ', *letters_guessed)
         return False
 
-
 #REPLAYS GAME
-#def replay():
+def replay(play_again):
     play_again = input('Would you like to play again? Choose an option: Y / N\n')
     if play_again == 'y' or play_again == 'Y':
+        letters_guessed.clear()
+        spaceman(load_word())
         return True
+    elif play_again == 'n' or play_again == 'N':
+        quit()
     else:
-        return False
+        print("Invalid response. Quitting game")
+        quit()
+    
 
 
 #MAIN SPACEMAN FUNCTION
@@ -121,6 +126,7 @@ def spaceman(secret_word):
       secret_word (string): the secret word to guess.
 
     '''
+
     
     welcome = '\n\nWelcome to Spaceman! \nA word guessing game of the new age!\nLet\'s get started!\n\n'
     banner_intro = pyfiglet.figlet_format(welcome, font = "drpepper" ) 
@@ -143,12 +149,10 @@ def spaceman(secret_word):
 
             if is_word_guessed(secret_word, letters_guessed) == True:
                 print(colors.pink, banner_win + '\nYou won the game! Congratulations!')
-                return False
-                #replay()
+                replay(secret_word)
             elif len(incorrect_guess) > 6:
                 print(colors.red, banner_lose + '\nYou lost.\nThis is your mystery word: ' + secret_word + '\nBetter luck next time.')
-                return False
-                #replay()
+                replay(secret_word)
             else:
                 print (colors.yellow, "Number of guesses attempted: " + str(len(incorrect_guess)) + '\n\n')
 
@@ -156,9 +160,3 @@ def spaceman(secret_word):
 #These function calls that will start the game
 secret_word = load_word()
 spaceman(secret_word)
-        
-
-
-#FIX
-#"this is the correct answer" to show the full word at the end
-#"wrong guess" message even when correct guess is made
